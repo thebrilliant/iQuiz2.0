@@ -23,7 +23,8 @@ class AnswerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NSLog("\(currentQ)")
+        correctText.text? = "You were: "
         if wasCorrect {
             correctText.text? += "right!"
         } else {
@@ -40,6 +41,7 @@ class AnswerViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Complete" {
+            NSLog("segue is for finish")
             if let destination = segue.destinationViewController as? FinishedViewController {
                 destination.total = totalQ
                 destination.correct = totalCorrect
@@ -60,7 +62,8 @@ class AnswerViewController: UIViewController {
     }
     
     @IBAction func nextPressed(sender: UIButton) {
-        if totalQ == currentQ {
+        if totalQ - 1 == currentQ {
+            NSLog("Hit the complete button")
             performSegueWithIdentifier("Complete", sender: self)
         } else {
             performSegueWithIdentifier("NextQ", sender: self)
